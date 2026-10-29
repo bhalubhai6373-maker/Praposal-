@@ -9,14 +9,14 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <!-- Tone.js for Sound Effects -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <!-- Lottie Web Player for WhatsApp/Telegram Style Animated 3D Emojis -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -28,249 +28,24 @@
                         cardbg: '#ffffff'
                     },
                     fontFamily: {
-                        serif: ['Dancing Script', 'cursive'],
-                        sans: ['Poppins', 'sans-serif']
+                        serif: ['"Dancing Script"', 'cursive'],
+                        sans: ['"Poppins"', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ffe6ea 0%, #ffe3e8 50%, #ffd1dc 100%);
+            background: linear-gradient(135deg, #ffe6eb 0%, #ffe3e8 50%, #ffd1dc 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
-
         .cursive-title {
             font-family: 'Dancing Script', cursive;
         }
-
-        /* Glassmorphism Effect */
         .glass-card {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 20px 40px rgba(235, 87, 87, 0.15);
-        }
-
-        /* Heart Canvas floating behind */
-        #heart-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Pulsing Heart Animation */
-        @keyframes pulse-beat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-
-        .animate-heartbeat {
-            animation: pulse-beat 1.3s infinite ease-in-out;
-        }
-
-        /* Floating effect */
-        @keyframes float-slow {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .animate-float {
-            animation: float-slow 3s infinite ease-in-out;
-        }
-
-        /* Shimmer effect for main button */
-        .btn-glow {
-            box-shadow: 0 0 20px rgba(255, 117, 140, 0.6);
-            transition: all 0.3s ease;
-        }
-        .btn-glow:hover {
-            box-shadow: 0 0 30px rgba(255, 117, 140, 0.9);
-            transform: translateY(-2px);
-        }
-    </style>
-</head>
-<body class="flex flex-col items-center justify-center p-4 relative min-h-screen">
-
-    <!-- Background Particle Canvas -->
-    <canvas id="heart-canvas"></canvas>
-
-    <!-- Music Control Floating Button -->
-    <button id="music-toggle" onclick="toggleMusic()" class="fixed top-5 right-5 z-50 bg-white/80 backdrop-blur-md p-3.5 rounded-full shadow-lg border border-pink-200 text-rose-500 hover:scale-110 transition duration-300 flex items-center justify-center w-12 h-12">
-        <i id="music-icon" class="fas fa-music text-lg"></i>
-    </button>
-
-    <!-- Main Content Container -->
-    <div class="relative z-10 w-full max-w-lg mx-auto text-center my-auto py-6">
-
-        <!-- Card Container -->
-        <div id="main-card" class="glass-card rounded-3xl p-6 sm:p-10 transition-all duration-500 transform hover:shadow-2xl relative">
-            
-            <!-- Dynamic Animated Emoji Display Container -->
-            <div id="icon-container" class="relative inline-block mb-4">
-                <div id="emoji-badge" class="w-32 h-32 bg-gradient-to-tr from-pink-400 to-rose-500 rounded-full flex items-center justify-center shadow-xl mx-auto transition-all duration-300 p-2 overflow-hidden border-4 border-white/50">
-                    <!-- Animated Lottie / 3D Emoji Container -->
-                    <div id="lottie-emoji-container" class="w-full h-full flex items-center justify-center">
-                        <img id="main-animated-emoji" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f970/512.gif" alt="Animated Emoji" class="w-24 h-24 object-contain drop-shadow-md">
-                    </div>
-                </div>
-                <span id="ping-dot" class="absolute -top-1 -right-1 flex h-4 w-4">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-4 w-4 bg-rose-500"></span>
-                </span>
-            </div>
-
-            <!-- Greeting / Title -->
-            <h1 id="main-heading" class="cursive-title text-4xl sm:text-5xl font-bold text-rose-600 mb-3 drop-shadow-sm">
-                Hey Beautiful 💕
-            </h1>
-
-            <!-- Subtitle/Message -->
-            <p id="main-text" class="text-gray-700 text-base sm:text-lg mb-6 leading-relaxed font-light">
-                From the moment you stepped into my life, every day feels brighter and sweeter. I have a tiny question kept close in my heart...
-            </p>
-
-            <!-- Pleading/Emotional Message Alert Box -->
-            <div id="pleading-alert" class="hidden mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 animate-bounce shadow-md">
-                <p id="pleading-text" class="text-lg font-semibold flex items-center justify-center gap-2">
-                    Please 🥺 Please
-                </p>
-            </div>
-
-            <!-- Interactive Love Note (Collapsible accordion) -->
-            <div class="mb-8 text-left border border-pink-100 rounded-2xl bg-pink-50/50 p-4 transition duration-300 hover:bg-pink-50">
-                <button onclick="toggleLoveLetter()" class="w-full flex justify-between items-center text-rose-600 font-medium text-sm focus:outline-none">
-                    <span><i class="fas fa-envelope-open-text mr-2"></i> Read my little note for you</span>
-                    <i id="letter-arrow" class="fas fa-chevron-down transition-transform duration-300"></i>
-                </button>
-                <div id="love-letter" class="hidden mt-3 text-xs sm:text-sm text-gray-600 space-y-2 border-t border-pink-100 pt-3 leading-relaxed">
-                    <p>"Your smile is my favorite visual, your voice is my favorite tune, and your happiness is my biggest wish."</p>
-                    <p>I created this small page just to see you smile today. You make my world feel warm, full of joy, and truly complete! ✨</p>
-                </div>
-            </div>
-
-            <!-- Proposal Question Box -->
-            <div id="question-box" class="space-y-6">
-                <h2 id="proposal-title" class="text-2xl sm:text-3xl font-semibold text-rose-500 cursive-title">
-                    Will you be mine forever? 🌹
-                </h2>
-
-                <!-- Action Buttons Container -->
-                <div id="button-group" class="relative flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 min-h-[100px]">
-                    
-                    <!-- YES BUTTON -->
-                    <button id="yes-btn" onclick="handleYesClick()" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-full text-lg shadow-lg btn-glow transition transform active:scale-95 z-20">
-                        <i class="fas fa-heart mr-2"></i> Yes 💖
-                    </button>
-
-                    <!-- NO BUTTON -->
-                    <button id="no-btn" onclick="handleNoClick()" class="w-full sm:w-auto px-8 py-3.5 bg-gray-200 text-gray-700 font-medium rounded-full text-lg shadow hover:bg-gray-300 transition duration-200 z-10">
-                        No 💔
-                    </button>
-
-                </div>
-            </div>
-
-            <!-- Celebration Screen (Initially Hidden) -->
-            <div id="success-message" class="hidden space-y-6 py-4 animate-fade-in">
-                <div class="space-y-3">
-                    <!-- WhatsApp 3D Animated Emojis Row for Celebration -->
-                    <div class="flex justify-center items-center gap-3 mb-3">
-                        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f929/512.gif" alt="Star Struck" class="w-16 h-16 animate-bounce">
-                        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f606/512.gif" alt="Excited Laughing" class="w-16 h-16 animate-bounce delay-100">
-                        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f970/512.gif" alt="Smiling with Hearts" class="w-16 h-16 animate-bounce delay-200">
-                    </div>
-                    <h2 class="cursive-title text-4xl sm:text-5xl font-bold text-rose-600">
-                        YAYYY! I knew it! 💖
-                    </h2>
-                    <p class="text-gray-700 text-base sm:text-lg font-medium">
-                        You made me the happiest person alive! Get ready for endless laughter, sweet memories, and infinite love! 🚀✨
-                    </p>
-                </div>
-
-                <!-- Romantic Quote Card -->
-                <div class="p-4 rounded-2xl bg-gradient-to-r from-pink-100 to-rose-100 text-rose-800 text-sm italic shadow-inner">
-                    "I loved you yesterday, love you still, always have, always will."
-                </div>
-
-                <!-- Reset/Share Button -->
-                <button onclick="restartPage()" class="text-xs text-rose-400 hover:text-rose-600 underline pt-2 inline-block">
-                    Replay the moment 🔄
-                </button>
-            </div>
-
-        </div>
-
-        <!-- Footer -->
-        <p class="text-xs text-rose-400/80 mt-6 font-light">
-            Crafted with all the ❤️ in the world
-        </p>
-
-    </div>
-
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        // Setup background canvas
-        const canvas = document.getElementById('heart-canvas');
-        const ctx = canvas.getContext('2d');
-        let hearts = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Heart {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + 20;
-                this.size = Math.random() * 15 + 8;
-                this.speedY = Math.random() * 1.5 + 0.8;
-                this.speedX = (Math.random() - 0.5) * 0.8;
-                this.opacity = Math.random() * 0.5 + 0.3;
-                this.color = `rgba(255, ${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 150 + 100)}, ${this.opacity})`;
-            }
-            update() {
-                this.y -= this.speedY;
-                this.x += this.speedX;
-                if (this.y < -20) this.reset();
-            }
-            draw() {
-                ctx.save();
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.translate(this.x, this.y);
-                ctx.scale(this.size / 20, this.size / 20);
-                ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(-10, -10, -20, 5, 0, 20);
-                ctx.bezierCurveTo(20, 5, 10, -10, 0, 0);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        for (let i = 0; i < 25; i++) {
-            hearts.push(new Heart());
-        }
-
-        function animateHearts() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // --- Interactive Multi-Step "No" Logic & Animated Emojis ---
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -282,14 +57,14 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <!-- Tone.js for Sound Effects -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <!-- Lottie Web Player for WhatsApp/Telegram Style Animated 3D Emojis -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -301,36 +76,30 @@
                         cardbg: '#ffffff'
                     },
                     fontFamily: {
-                        serif: ['Dancing Script', 'cursive'],
-                        sans: ['Poppins', 'sans-serif']
+                        serif: ['"Dancing Script"', 'cursive'],
+                        sans: ['"Poppins"', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ffe6ea 0%, #ffe3e8 50%, #ffd1dc 100%);
+            background: linear-gradient(135deg, #ffe6eb 0%, #ffe3e8 50%, #ffd1dc 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
-
         .cursive-title {
             font-family: 'Dancing Script', cursive;
         }
-
-        /* Glassmorphism Effect */
         .glass-card {
-            background: rgba(255, 255, 255, 0.88);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 20px 40px rgba(235, 87, 87, 0.15);
         }
-
-        /* Heart Canvas floating behind */
         #heart-canvas {
             position: fixed;
             top: 0;
@@ -340,162 +109,173 @@
             pointer-events: none;
             z-index: 0;
         }
-
-        /* Pulsing Heart Animation */
-        @keyframes pulse-beat {
+        @keyframes pulse-best {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            50% { transform: scale(1.05); }
         }
-
-        .animate-heartbeat {
-            animation: pulse-beat 1.3s infinite ease-in-out;
+        .pulse-anim {
+            animation: pulse-best 2s infinite;
         }
-
-        /* Floating effect */
-        @keyframes float-slow {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .animate-float {
-            animation: float-slow 3s infinite ease-in-out;
-        }
-
-        /* Shimmer effect for main button */
-        .btn-glow {
-            box-shadow: 0 0 20px rgba(255, 117, 140, 0.6);
-            transition: all 0.3s ease;
-        }
-        .btn-glow:hover {
-            box-shadow: 0 0 30px rgba(255, 117, 140, 0.9);
-            transform: translateY(-2px);
+        .emoji-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center p-4 relative min-h-screen">
+<body class="flex items-center justify-center p-4 relative">
 
-    <!-- Background Particle Canvas -->
     <canvas id="heart-canvas"></canvas>
 
-    <!-- Music Control Floating Button -->
-    <button id="music-toggle" onclick="toggleMusic()" class="fixed top-5 right-5 z-50 bg-white/80 backdrop-blur-md p-3.5 rounded-full shadow-lg border border-pink-200 text-rose-500 hover:scale-110 transition duration-300 flex items-center justify-center w-12 h-12">
-        <i id="music-icon" class="fas fa-music text-lg"></i>
-    </button>
+    <div id="main-card" class="glass-card rounded-3xl p-6 md:p-10 max-w-md w-full text-center relative z-10 transition-all duration-500 shadow-2xl">
+        
+        <!-- 3D Lottie Emoji Animation Frame -->
+        <div id="lottie-emoji" class="emoji-container mb-4"></div>
 
-    <!-- Main Content Container -->
-    <div class="relative z-10 w-full max-w-lg mx-auto text-center my-auto py-6">
-
-        <!-- Card Container -->
-        <div id="main-card" class="glass-card rounded-3xl p-6 sm:p-10 transition-all duration-500 transform hover:shadow-2xl relative">
-            
-            <!-- Dynamic Animated Emoji Display Container -->
-            <div id="icon-container" class="relative inline-block mb-4">
-                <div id="emoji-badge" class="w-32 h-32 bg-gradient-to-tr from-pink-400 to-rose-500 rounded-full flex items-center justify-center shadow-xl mx-auto transition-all duration-300 p-2 overflow-hidden border-4 border-white/50">
-                    <!-- Animated Lottie / 3D Emoji Container -->
-                    <div id="lottie-emoji-container" class="w-full h-full flex items-center justify-center">
-                        <img id="main-animated-emoji" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f970/512.gif" alt="Animated Emoji" class="w-24 h-24 object-contain drop-shadow-md">
-                    </div>
-                </div>
-                <span id="ping-dot" class="absolute -top-1 -right-1 flex h-4 w-4">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-4 w-4 bg-rose-500"></span>
-                </span>
-            </div>
-
-            <!-- Greeting / Title -->
-            <h1 id="main-heading" class="cursive-title text-4xl sm:text-5xl font-bold text-rose-600 mb-3 drop-shadow-sm">
-                Hey Beautiful 💕
-            </h1>
-
-            <!-- Subtitle/Message -->
-            <p id="main-text" class="text-gray-700 text-base sm:text-lg mb-6 leading-relaxed font-light">
-                From the moment you stepped into my life, every day feels brighter and sweeter. I have a tiny question kept close in my heart...
-            </p>
-
-            <!-- Pleading/Emotional Message Alert Box -->
-            <div id="pleading-alert" class="hidden mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 animate-bounce shadow-md">
-                <p id="pleading-text" class="text-lg font-semibold flex items-center justify-center gap-2">
-                    Please 🥺 Please
-                </p>
-            </div>
-
-            <!-- Interactive Love Note (Collapsible accordion) -->
-            <div class="mb-8 text-left border border-pink-100 rounded-2xl bg-pink-50/50 p-4 transition duration-300 hover:bg-pink-50">
-                <button onclick="toggleLoveLetter()" class="w-full flex justify-between items-center text-rose-600 font-medium text-sm focus:outline-none">
-                    <span><i class="fas fa-envelope-open-text mr-2"></i> Read my little note for you</span>
-                    <i id="letter-arrow" class="fas fa-chevron-down transition-transform duration-300"></i>
-                </button>
-                <div id="love-letter" class="hidden mt-3 text-xs sm:text-sm text-gray-600 space-y-2 border-t border-pink-100 pt-3 leading-relaxed">
-                    <p>"Your smile is my favorite visual, your voice is my favorite tune, and your happiness is my biggest wish."</p>
-                    <p>I created this small page just to see you smile today. You make my world feel warm, full of joy, and truly complete! ✨</p>
-                </div>
-            </div>
-
-            <!-- Proposal Question Box -->
-            <div id="question-box" class="space-y-6">
-                <h2 id="proposal-title" class="text-2xl sm:text-3xl font-semibold text-rose-500 cursive-title">
-                    Will you be mine forever? 🌹
-                </h2>
-
-                <!-- Action Buttons Container -->
-                <div id="button-group" class="relative flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 min-h-[100px]">
-                    
-                    <!-- YES BUTTON -->
-                    <button id="yes-btn" onclick="handleYesClick()" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-full text-lg shadow-lg btn-glow transition transform active:scale-95 z-20">
-                        <i class="fas fa-heart mr-2"></i> Yes 💖
-                    </button>
-
-                    <!-- NO BUTTON -->
-                    <button id="no-btn" onclick="handleNoClick()" class="w-full sm:w-auto px-8 py-3.5 bg-gray-200 text-gray-700 font-medium rounded-full text-lg shadow hover:bg-gray-300 transition duration-200 z-10">
-                        No 💔
-                    </button>
-
-                </div>
-            </div>
-
-            <!-- Celebration Screen (Initially Hidden) -->
-            <div id="success-message" class="hidden space-y-6 py-4 animate-fade-in">
-                <div class="space-y-3">
-                    <!-- WhatsApp 3D Animated Emojis Row for Celebration -->
-                    <div class="flex justify-center items-center gap-3 mb-3">
-                        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f929/512.gif" alt="Star Struck" class="w-16 h-16 animate-bounce">
-                        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f606/512.gif" alt="Excited Laughing" class="w-16 h-16 animate-bounce delay-100">
-                        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f970/512.gif" alt="Smiling with Hearts" class="w-16 h-16 animate-bounce delay-200">
-                    </div>
-                    <h2 class="cursive-title text-4xl sm:text-5xl font-bold text-rose-600">
-                        YAYYY! I knew it! 💖
-                    </h2>
-                    <p class="text-gray-700 text-base sm:text-lg font-medium">
-                        You made me the happiest person alive! Get ready for endless laughter, sweet memories, and infinite love! 🚀✨
-                    </p>
-                </div>
-
-                <!-- Romantic Quote Card -->
-                <div class="p-4 rounded-2xl bg-gradient-to-r from-pink-100 to-rose-100 text-rose-800 text-sm italic shadow-inner">
-                    "I loved you yesterday, love you still, always have, always will."
-                </div>
-
-                <!-- Reset/Share Button -->
-                <button onclick="restartPage()" class="text-xs text-rose-400 hover:text-rose-600 underline pt-2 inline-block">
-                    Replay the moment 🔄
-                </button>
-            </div>
-
-        </div>
-
-        <!-- Footer -->
-        <p class="text-xs text-rose-400/80 mt-6 font-light">
-            Crafted with all the ❤️ in the world
+        <h1 class="cursive-title text-4xl md:text-5xl font-bold text-rose-600 mb-3 drop-shadow-sm">
+            Will You Be Mine?
+        </h1>
+        
+        <p id="helper-text" class="text-gray-600 text-base md:text-lg mb-8 font-medium">
+            You're the missing piece to my heart... ✨
         </p>
 
+        <div id="button-group" class="flex flex-col sm:flex-row items-center justify-center gap-4 relative h-20">
+            <button id="yes-btn" onclick="handleYes()" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-rose-500 to-red-500 text-white font-semibold rounded-full shadow-lg hover:shadow-rose-300/50 hover:scale-105 active:scale-95 transition-all duration-300 text-lg flex items-center justify-center gap-2 z-20">
+                <i class="fa-solid fa-heart"></i> Yes! 🥰
+            </button>
+            
+            <button id="no-btn" onclick="handleNo()" class="w-full sm:w-auto px-8 py-3.5 bg-gray-200 text-gray-700 font-semibold rounded-full shadow hover:bg-gray-300 transition-all duration-200 text-lg z-30">
+                No 💔
+            </button>
+        </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Setup background canvas
+        // Lottie Emoji Animations (WhatsApp / Telegram 3D Style)
+        let lottiePlayer = null;
+
+        const emojiAnimations = {
+            pleading: "https://assets2.lottiefiles.com/packages/lf20_49rdyisj.json", // Cute pleading/sad 🥺
+            crying: "https://assets5.lottiefiles.com/packages/lf20_7fkvoy8i.json",     // Crying 😭
+            love: "https://assets10.lottiefiles.com/packages/lf20_u25cckyh.json",     // Heart eyes 🥰
+            celebration: "https://assets9.lottiefiles.com/packages/lf20_rovf9gzu.json" // Party / Confetti 🥳
+        };
+
+        function loadEmoji(url) {
+            const container = document.getElementById('lottie-emoji');
+            container.innerHTML = '';
+            try {
+                lottiePlayer = lottie.loadAnimation({
+                    container: container,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: url
+                });
+            } catch(e) {
+                container.innerHTML = '<span class="text-6xl">🥺</span>';
+            }
+        }
+
+        // Initialize with default love/pleading cute look
+        loadEmoji("https://assets2.lottiefiles.com/packages/lf20_u25cckyh.json");
+
+        let noClickCount = 0;
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const helperText = document.getElementById('helper-text');
+        const mainCard = document.getElementById('main-card');
+
+        function handleNo() {
+            noClickCount++;
+
+            if (noClickCount === 1) {
+                // First No Click -> Please Please
+                noBtn.innerText = "Please 🥺 Please";
+                helperText.innerText = "Aise mat bolo na... Ek baar aur soch lo! 🥺";
+                loadEmoji("https://assets2.lottiefiles.com/packages/lf20_49rdyisj.json"); // 🥺 emoji
+            } 
+            else if (noClickCount >= 2) {
+                // Second No Click onwards -> Runaway Mode + Maan jao naa
+                noBtn.innerText = "Maan jao naa 🥺";
+                helperText.innerText = "Haha! Ab 'No' touch hi nahi hoga! Sirf 'Yes' hi option hai! 😉";
+                loadEmoji("https://assets5.lottiefiles.com/packages/lf20_7fkvoy8i.json"); // 😭 emoji
+                
+                // Make Yes button bigger and punchy
+                yesBtn.classList.add('scale-125', 'shadow-2xl', 'z-40');
+                
+                // Trigger runaway movement
+                moveButtonRandomly();
+            }
+        }
+
+        // Runaway button for mobile & desktop touch/hover
+        noBtn.addEventListener('mouseover', () => {
+            if (noClickCount >= 2) moveButtonRandomly();
+        });
+        noBtn.addEventListener('touchstart', (e) => {
+            if (noClickCount >= 2) {
+                e.preventDefault();
+                moveButtonRandomly();
+            }
+        });
+
+        function moveButtonRandomly() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${Math.max(20, x)}px`;
+            noBtn.style.top = `${Math.max(20, y)}px`;
+        }
+
+        function handleYes() {
+            noBtn.style.display = 'none';
+            loadEmoji("https://assets9.lottiefiles.com/packages/lf20_rovf9gzu.json"); // Celebration 😆🤩
+            
+            mainCard.innerHTML = `
+                <div id="lottie-emoji" class="emoji-container mb-4"></div>
+                <h1 class="cursive-title text-5xl font-bold text-rose-600 mb-4 animate-bounce">
+                    YAYYY! 😆🤩💖
+                </h1>
+                <p class="text-gray-700 text-lg md:text-xl font-medium mb-6 leading-relaxed">
+                    I knew it! You made me the happiest person alive! 🥰 Let's create beautiful memories together! ✨
+                </p>
+                <div class="flex justify-center gap-3 text-3xl">
+                    <span>💖</span><span>✨</span><span>🎉</span><span>🥳</span><span>❤️</span>
+                </div>
+            `;
+            loadEmoji("https://assets9.lottiefiles.com/packages/lf20_rovf9gzu.json");
+
+            // Confetti Blast
+            const duration = 3 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff758c', '#ff7eb3', '#ffffff', '#ff4757']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff758c', '#ff7eb3', '#ffffff', '#ff4757']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Background Floating Hearts Canvas Animation
         const canvas = document.getElementById('heart-canvas');
         const ctx = canvas.getContext('2d');
-        let hearts = [];
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -504,397 +284,178 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        class Heart {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + 20;
-                this.size = Math.random() * 15 + 8;
-                this.speedY = Math.random() * 1.5 + 0.8;
-                this.speedX = (Math.random() - 0.5) * 0.8;
-                this.opacity = Math.random() * 0.5 + 0.3;
-                this.color = `rgba(255, ${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 150 + 100)}, ${this.opacity})`;
-            }
-            update() {
-                this.y -= this.speedY;
-                this.x += this.speedX;
-                if (this.y < -20) this.reset();
-            }
-            draw() {
-                ctx.save();
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.translate(this.x, this.y);
-                ctx.scale(this.size / 20, this.size / 20);
-                ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(-10, -10, -20, 5, 0, 20);
-                ctx.bezierCurveTo(20, 5, 10, -10, 0, 0);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
+        const hearts = [];
         for (let i = 0; i < 25; i++) {
-            hearts.push(new Heart());
+            hearts.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 20 + 10,
+                speedY: Math.random() * 1 + 0.5,
+                opacity: Math.random() * 0.5 + 0.2
+            });
         }
 
-        function animateHearts() {
+        function drawHearts() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // --- Interactive Multi-Step "No" Logic & Animated Emojis ---
-        const noBtn = document.getElementById('no-btn');
-        const yesBtn = document.getElementById('yes-btn');
-        const pleadingAlert = document.getElementById('pleading-alert');
-        const pleadingText = document.getElementById('pleading-text');
-        const mainAnimatedEmoji = document.getElementById('main-animated-emoji');
+            hearts.forEach(h => {
+                ctx.fillStyle = `rgba(255, 117, 140, ${h.opacity})`;
+                ctx.font = `${h.size}px Arial`;
+                ctx.fillText('❤️', h.x, h.y);
 
-        // Animated 3D Emojis URLs (Google/WhatsApp Noto 3D Animated Emojis)
-        const ANIMATED_EMOJIS = {
-            FLIRTY: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f61c/512.gif",    // 😜 Flirting / Winking Tongue Emoji
-            PLEADING: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f97a/512.gif",   // 🥺 Emotional Pleading Eyes
-            CRYING: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f62d/512.gif",     // 😭 Crying / Emotional
-            CELEBRATE: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f929/512.gif"   // 🤩 Star-struck / Excited
-        };
-
-        let noClickState = 0; // 0 = initial, 1 = first click done, 2 = runaway active
-
-        function handleNoClick() {
-            playPopSound();
-
-            if (noClickState === 0) {
-                // STEP 1: First click on NO -> Show WhatsApp Animated Pleading Emoji & "Please 🥺 Please"
-                noClickState = 1;
-
-                // Update to Animated 3D Pleading Emoji
-                mainAnimatedEmoji.src = ANIMATED_EMOJIS.PLEADING;
-                
-                // Show exact requested text
-                pleadingText.innerHTML = "Please 🥺 Please";
-                pleadingAlert.classList.remove('hidden');
-                
-                // Change No button text to prompt again
-                noBtn.innerText = "No 🥺";
-
-                // Enlarge Yes button to draw attention
-                yesBtn.style.transform = "scale(1.2)";
-
-            } else if (noClickState === 1) {
-                // STEP 2: Second click on NO -> Show "Maan jao naa" & Runaway Mode
-                noClickState = 2;
-
-                // Update to Animated Crying Emoji
-                mainAnimatedEmoji.src = ANIMATED_EMOJIS.CRYING;
-
-                // Show exact requested text
-                pleadingText.innerHTML = "Maan jao naa 🥺";
-                pleadingAlert.className = "mb-6 p-4 rounded-2xl bg-pink-100 border border-pink-300 text-rose-800 animate-pulse shadow-md";
-
-                // Move button immediately & attach touch/hover handlers
-                moveNoButton();
-            }
+                h.y -= h.speedY;
+                if (h.y < -30) {
+                    h.y = canvas.height + 30;
+                    h.x = Math.random() * canvas.width;
+                }
+            });
+            requestAnimationFrame(drawHearts);
         }
-
-        function moveNoButton() {
-            if (noClickState < 2) return;
-
-            // Dodge No button anywhere inside container range
-            noBtn.style.position = 'absolute';
-
-            const maxX = window.innerWidth > 640 ? 160 : 100;
-            const maxY = 120;
-
-            const randomX = (Math.random() - 0.5) * maxX * 2;
-            const randomY = (Math.random() - 0.5) * maxY * 2;
-
-            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-            
-            playPopSound();
-        }
-
-        // Runaway event listeners (for touch and mouse hover)
-        noBtn.addEventListener('mouseenter', moveNoButton);
-        noBtn.addEventListener('touchstart', (e) => {
-            if (noClickState >= 2) {
-                e.preventDefault();
-                moveNoButton();
-            }
-        });
-
-        // --- Sound Effects with Tone.js ---
-        let synth;
-        let isMusicPlaying = false;
-        let melodyLoop;
-
-        function initAudio() {
-            if (!synth) {
-                synth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: { type: "sine" },
-                    envelope: { attack: 0.05, decay: 0.2, sustain: 0.2, release: 1 }
-                }).toDestination();
-                synth.volume.value = -12;
-            }
-        }
-
-        function playPopSound() {
-            try {
-                initAudio();
-                Tone.start();
-                const notes = ["C5", "E5", "G5", "B5"];
-                const randomNote = notes[Math.floor(Math.random() * notes.length)];
-                synth.triggerAttackRelease(randomNote, "8n");
-            } catch (e) {}
-        }
-
-        function playCelebrationSound() {
-            try {
-                initAudio();
-                Tone.start();
-                const now = Tone.now();
-                synth.triggerAttackRelease("C4", "8n", now);
-                synth.triggerAttackRelease("E4", "8n", now + 0.15);
-                synth.triggerAttackRelease("G4", "8n", now + 0.3);
-                synth.triggerAttackRelease("C5", "4n", now + 0.45);
-            } catch (e) {}
-        }
-
-        function toggleMusic() {
-            initAudio();
-            Tone.start();
-
-            const musicIcon = document.getElementById('music-icon');
-
-            if (!isMusicPlaying) {
-                const notes = ["C4", "E4", "G4", "B4", "A4", "G4", "E4", "D4"];
-                let index = 0;
-
-                melodyLoop = new Tone.Loop(time => {
-                    synth.triggerAttackRelease(notes[index % notes.length], "4n", time);
-                    index++;
-                }, "2n").start(0);
-
-                Tone.Transport.start();
-                isMusicPlaying = true;
-                musicIcon.className = "fas fa-volume-up text-lg text-rose-500 animate-pulse";
-            } else {
-                Tone.Transport.stop();
-                if (melodyLoop) melodyLoop.dispose();
-                isMusicPlaying = false;
-                musicIcon.className = "fas fa-music text-lg text-rose-500";
-            }
-        }
-
-        // --- Love Letter Accordion Toggle ---
-        function toggleLoveLetter() {
-            const letter = document.getElementById('love-letter');
-            const arrow = document.getElementById('letter-arrow');
-
-            if (letter.classList.contains('hidden')) {
-                letter.classList.remove('hidden');
-                arrow.style.transform = 'rotate(180deg)';
-                playPopSound();
-            } else {
-                letter.classList.add('hidden');
-                arrow.style.transform = 'rotate(0deg)';
-            }
-        }
-
-        // --- Celebration Handler ("Yes" Click) ---
-        function handleYesClick() {
-            playCelebrationSound();
-
-            // Fire Confetti Animation
-            launchConfetti();
-
-            // Hide Question Box and main text
-            document.getElementById('question-box').classList.add('hidden');
-            document.getElementById('main-heading').classList.add('hidden');
-            document.getElementById('main-text').classList.add('hidden');
-            pleadingAlert.classList.add('hidden');
-
-            const successMsg = document.getElementById('success-message');
-            successMsg.classList.remove('hidden');
-
-            // Switch Badge to 3D Animated Star-Struck Emoji
-            mainAnimatedEmoji.src = ANIMATED_EMOJIS.CELEBRATE;
-        }
-
-        function launchConfetti() {
-            const count = 200;
-            const defaults = { origin: { y: 0.7 } };
-
-            function fire(particleRatio, opts) {
-                confetti(Object.assign({}, defaults, opts, {
-                    particleCount: Math.floor(count * particleRatio)
-                }));
-            }
-
-            fire(0.25, { spread: 26, startVelocity: 55, colors: ['#ff758c', '#ff7eb3'] });
-            fire(0.2, { spread: 60, colors: ['#ffffff', '#ff4d6d'] });
-            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, colors: ['#ffe6ea', '#ff758c'] });
-            fire(0.1, { spread: 120, startVelocity: 45 });
-        }
-
-        // --- Reset Function ---
-        function restartPage() {
-            noClickState = 0;
-            
-            noBtn.style.position = 'relative';
-            noBtn.style.transform = 'none';
-            noBtn.innerText = 'No 💔';
-            yesBtn.style.transform = 'scale(1)';
-
-            mainAnimatedEmoji.src = ANIMATED_EMOJIS.FLIRTY;
-            pleadingAlert.classList.add('hidden');
-
-            document.getElementById('question-box').classList.remove('hidden');
-            document.getElementById('main-heading').classList.remove('hidden');
-            document.getElementById('main-text').classList.remove('hidden');
-            document.getElementById('success-message').classList.add('hidden');
-        }
+        drawHearts();
     </script>
 </body>
-</html>
-```￼Enter        const noBtn = document.getElementById('no-btn');
-        const yesBtn = document.getElementById('yes-btn');
-        const pleadingAlert = document.getElementById('pleading-alert');
-        const pleadingText = document.getElementById('pleading-text');
-        const mainAnimatedEmoji = document.getElementById('main-animated-emoji');
+</html>￼Enter            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 40px rgba(235, 87, 87, 0.15);
+        }
+        #heart-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes pulse-best {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .pulse-anim {
+            animation: pulse-best 2s infinite;
+        }
+        .emoji-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4 relative">
 
-        // Animated 3D Emojis URLs (Google/WhatsApp Noto 3D Animated Emojis)
-        const ANIMATED_EMOJIS = {
-            FLIRTY: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f61c/512.gif",    // 😜 Flirting / Winking Tongue Emoji
-            PLEADING: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f97a/512.gif",   // 🥺 Emotional Pleading Eyes
-            CRYING: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f62d/512.gif",     // 😭 Crying / Emotional
-            CELEBRATE: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f929/512.gif"   // 🤩 Star-struck / Excited
+    <canvas id="heart-canvas"></canvas>
+
+    <div id="main-card" class="glass-card rounded-3xl p-6 md:p-10 max-w-md w-full text-center relative z-10 transition-all duration-500 shadow-2xl">
+        
+        <!-- 3D Lottie Emoji Animation Frame -->
+        <div id="lottie-emoji" class="emoji-container mb-4"></div>
+
+        <h1 class="cursive-title text-4xl md:text-5xl font-bold text-rose-600 mb-3 drop-shadow-sm">
+            Will You Be Mine?
+        </h1>
+        
+        <p id="helper-text" class="text-gray-600 text-base md:text-lg mb-8 font-medium">
+            You're the missing piece to my heart... ✨
+        </p>
+
+        <div id="button-group" class="flex flex-col sm:flex-row items-center justify-center gap-4 relative h-20">
+            <button id="yes-btn" onclick="handleYes()" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-rose-500 to-red-500 text-white font-semibold rounded-full shadow-lg hover:shadow-rose-300/50 hover:scale-105 active:scale-95 transition-all duration-300 text-lg flex items-center justify-center gap-2 z-20">
+                <i class="fa-solid fa-heart"></i> Yes! 🥰
+            </button>
+            
+            <button id="no-btn" onclick="handleNo()" class="w-full sm:w-auto px-8 py-3.5 bg-gray-200 text-gray-700 font-semibold rounded-full shadow hover:bg-gray-300 transition-all duration-200 text-lg z-30">
+                No 💔
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Lottie Emoji Animations (WhatsApp / Telegram 3D Style)
+        let lottiePlayer = null;
+
+        const emojiAnimations = {
+            pleading: "https://assets2.lottiefiles.com/packages/lf20_49rdyisj.json", // Cute pleading/sad 🥺
+            crying: "https://assets5.lottiefiles.com/packages/lf20_7fkvoy8i.json",     // Crying 😭
+            love: "https://assets10.lottiefiles.com/packages/lf20_u25cckyh.json",     // Heart eyes 🥰
+            celebration: "https://assets9.lottiefiles.com/packages/lf20_rovf9gzu.json" // Party / Confetti 🥳
         };
 
-        let noClickState = 0; // 0 = initial, 1 = first click done, 2 = runaway active
-
-        function handleNoClick() {
-            playPopSound();
-
-            if (noClickState === 0) {
-                // STEP 1: First click on NO -> Show WhatsApp Animated Pleading Emoji & "Please 🥺 Please"
-                noClickState = 1;
-
-                // Update to Animated 3D Pleading Emoji
-                mainAnimatedEmoji.src = ANIMATED_EMOJIS.PLEADING;
-                
-                // Show exact requested text
-                pleadingText.innerHTML = "Please 🥺 Please";
-                pleadingAlert.classList.remove('hidden');
-                
-                // Change No button text to prompt again
-                noBtn.innerText = "No 🥺";
-
-                // Enlarge Yes button to draw attention
-                yesBtn.style.transform = "scale(1.2)";
-
-            } else if (noClickState === 1) {
-                // STEP 2: Second click on NO -> Show "Maan jao naa" & Runaway Mode
-                noClickState = 2;
-
-                // Update to Animated Crying Emoji
-                mainAnimatedEmoji.src = ANIMATED_EMOJIS.CRYING;
-
-                // Show exact requested text
-                pleadingText.innerHTML = "Maan jao naa 🥺";
-                pleadingAlert.className = "mb-6 p-4 rounded-2xl bg-pink-100 border border-pink-300 text-rose-800 animate-pulse shadow-md";
-
-                // Move button immediately & attach touch/hover handlers
-                moveNoButton();
+        function loadEmoji(url) {
+            const container = document.getElementById('lottie-emoji');
+            container.innerHTML = '';
+            try {
+                lottiePlayer = lottie.loadAnimation({
+              container: container,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: url
+                });
+            } catch(e) {
+                container.innerHTML = '<span class="text-6xl">🥺</span>';
             }
         }
 
-        function moveNoButton() {
-            if (noClickState < 2) return;
+        // Initialize with default love/pleading cute look
+        loadEmoji("https://assets2.lottiefiles.com/packages/lf20_u25cckyh.json");
 
-            // Dodge No button anywhere inside container range
-            noBtn.style.position = 'absolute';
+        let noClickCount = 0;
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const helperText = document.getElementById('helper-text');
+        const mainCard = document.getElementById('main-card');
 
-            const maxX = window.innerWidth > 640 ? 160 : 100;
-            const maxY = 120;
+        function handleNo() {
+            noClickCount++;
 
-            const randomX = (Math.random() - 0.5) * maxX * 2;
-            const randomY = (Math.random() - 0.5) * maxY * 2;
-
-            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-            
-            playPopSound();
+            if (noClickCount === 1) {
+                // First No Click -> Please Please
+                noBtn.innerText = "Please 🥺 Please";
+                helperText.innerText = "Aise mat bolo na... Ek baar aur soch lo! 🥺";
+                loadEmoji("https://assets2.lottiefiles.com/packages/lf20_49rdyisj.json"); // 🥺 emoji
+            } 
+            else if (noClickCount >= 2) {
+                // Second No Click onwards -> Runaway Mode + Maan jao naa
+                noBtn.innerText = "Maan jao naa 🥺";
+                helperText.innerText = "Haha! Ab 'No' touch hi nahi hoga! Sirf 'Yes' hi option hai! 😉";
+                loadEmoji("https://assets5.lottiefiles.com/packages/lf20_7fkvoy8i.json"); // 😭 emoji
+                
+                // Make Yes button bigger and punchy
+                yesBtn.classList.add('scale-125', 'shadow-2xl', 'z-40');
+                
+                // Trigger runaway movement
+                moveButtonRandomly();
+            }
         }
 
-        // Runaway event listeners (for touch and mouse hover)
-        noBtn.addEventListener('mouseenter', moveNoButton);
-  noBtn.addEventListener('touchstart', (e) => {
-            if (noClickState >= 2) {
+        // Runaway button for mobile & desktop touch/hover
+        noBtn.addEventListener('mouseover', () => {
+            if (noClickCount >= 2) moveButtonRandomly();
+        });
+        noBtn.addEventListener('touchstart', (e) => {
+            if (noClickCount >= 2) {
                 e.preventDefault();
-                moveNoButton();
+                moveButtonRandomly();
             }
         });
 
-        // --- Sound Effects with Tone.js ---
-        let synth;
-        let isMusicPlaying = false;
-        let melodyLoop;
-
-        function initAudio() {
-            if (!synth) {
-                synth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: { type: "sine" },
-                    envelope: { attack: 0.05, decay: 0.2, sustain: 0.2, release: 1 }
-                }).toDestination();
-                synth.volume.value = -12;
-            }
+        function moveButtonRandomly() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${Math.max(20, x)}px`;
+            noBtn.style.top = `${Math.max(20, y)}px`;
         }
 
-        function playPopSound() {
-            try {
-                initAudio();
-                Tone.start();
-                const notes = ["C5", "E5", "G5", "B5"];
-                const randomNote = notes[Math.floor(Math.random() * notes.length)];
-                synth.triggerAttackRelease(randomNote, "8n");
-            } catch (e) {}
-        }
-
-        function playCelebrationSound() {
-            try {
-                initAudio();
-                Tone.start();
-                const now = Tone.now();
-                synth.triggerAttackRelease("C4", "8n", now);
-                synth.triggerAttackRelease("E4", "8n", now + 0.15);
-                synth.triggerAttackRelease("G4", "8n", now + 0.3);
-                synth.triggerAttackRelease("C5", "4n", now + 0.45);
-            } catch (e) {}
-        }
-
-        function toggleMusic() {
-            initAudio();
-            Tone.start();
-
-            const musicIcon = document.getElementById('music-icon');
-
-            if (!isMusicPlaying) {
-                const notes = ["C4", "E4", "G4", "B4", "A4", "G4", "E4", "D4"];
-                let index = 0;
-
-                melodyLoop = new Tone.Loop(time => {
-                    synth.triggerAttackRelease(notes[index % notes.length], "4n", time);
-                    index++;
-                }, "2n").start(0);
-
-                Tone.Transport.start();
-                isMusicPlaying = true;
-                musicIcon.className = "fas fa-volume-up text-lg text-rose-500 animate-pulse";
-            } else {
-                Tone.Transport.stop();
-                if (melodyLoop) melodyLoop.dispose();
-                isMusicPlaying = false;
-                musicIcon.className = "fas fa-music text-lg text-rose-500";
-            }
-        }
-
-        // --- Love Letter Accordion Toggle ---
+        function handleYes() {
+            noBtn.style.display = 'none';
+            loadEmoji("https://assets9.lottiefiles.com/packages/lf20_rovf9gzu.json"); // Celebration 😆🤩
+            
+            mainCard.innerHTML = `
+                <div id="lottie-emoji" class="emoji-container mb-4"></div>
+                <h1 class="cursive-title text-5xl font-bold text-rose-600 mb-4 animate-bounce">
+                    YAYYY! 😆🤩💖
+                </h1>
+                <p class="text-gray-700 text-lg md:text-xl font-medium mb-6 leading-relaxed">
+                    I knew it! You made me the happiest person alive! 🥰 Let's create beautiful memories together! ✨
