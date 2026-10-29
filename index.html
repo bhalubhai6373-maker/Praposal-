@@ -42,6 +42,50 @@
             }
             100% {
                 transform: translateY(-10vh) scale(1.2);
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Proposal For You ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #feada6 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating Hearts Background */
+        .heart-bg {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            animation: floatUp 6s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
                 opacity: 0;
             }
         }
@@ -49,16 +93,15 @@
         .container {
             position: relative;
             z-index: 10;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            padding: 40px 30px;
+            padding: 35px 20px;
             border-radius: 25px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
             text-align: center;
             max-width: 400px;
             width: 90%;
             border: 2px solid rgba(255, 255, 255, 0.5);
-            transition: all 0.5s ease;
         }
 
         .emoji-container {
@@ -74,28 +117,30 @@
 
         h1 {
             color: #d63384;
-            font-size: 26px;
+            font-size: 24px;
             margin-bottom: 15px;
             font-weight: 700;
         }
 
         p {
             color: #555;
-            font-size: 16px;
-            margin-bottom: 30px;
+            font-size: 15px;
+            margin-bottom: 25px;
             line-height: 1.5;
         }
 
         .btn-group {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 12px;
             position: relative;
+            min-height: 60px;
         }
 
         .btn {
-            padding: 12px 30px;
-            font-size: 18px;
+            padding: 10px 20px;
+            font-size: 16px;
             font-weight: bold;
             border: none;
             border-radius: 50px;
@@ -112,28 +157,21 @@
 
         #yesBtn:hover {
             transform: scale(1.08);
-            box-shadow: 0 8px 20px rgba(255, 65, 108, 0.4);
         }
 
-        #noBtn {
+        #noBtn, #thinkBtn {
             background: #e0e0e0;
             color: #333;
-            position: relative;
-            transition: 0.2s ease;
         }
 
         /* Celebration Screen */
-        .hidden {
-            display: none !important;
-        }
-
         .success-box h1 {
             color: #28a745;
             font-size: 28px;
             margin-bottom: 15px;
         }
 
-        /* Confetti effect simple particles */
+        /* Confetti effect */
         .confetti {
             position: absolute;
             width: 10px;
@@ -171,62 +209,73 @@
         
         <div class="btn-group" id="btnGroup">
             <button class="btn" id="yesBtn" onclick="sayYes()">Yes! 🥰</button>
+            <button class="btn" id="thinkBtn" onclick="handleThinkClick()">Sochungi 🤔</button>
             <button class="btn" id="noBtn" onclick="handleNoClick()">No 😒</button>
         </div>
     </div>
 
     <script>
-        let noClickCount = 0;
+        let clickStage = 0;
+
+        function handleThinkClick() {
+            clickStage++;
+            updateEmotionalState("Sochungi? 🥺", "Aise mat bolo yaar, dil me dard hota hai... Please jaldi se Yes bol do na! 💖");
+        }
 
         function handleNoClick() {
-            noClickCount++;
+            clickStage++;
+            updateEmotionalState("Dil mat todo! 😭", "Na mat kaho na please! 🥺 Aise rulaogi kya mujhe? Ek baar aur socho!");
+        }
+
+        function updateEmotionalState(title, desc) {
             const emojiBox = document.getElementById('emojiBox');
             const titleText = document.getElementById('titleText');
             const descText = document.getElementById('descText');
             const noBtn = document.getElementById('noBtn');
-            const yesBtn = document.getElementById('yesBtn');
+            const thinkBtn = document.getElementById('thinkBtn');
 
-            if (noClickCount === 1) {
-                // First No click: Emotional pleading state
-                emojiBox.innerHTML = '🥺';
-                titleText.innerHTML = 'Please 🥺 Please!';
-                descText.innerHTML = 'Aise mat karo na... Ek baar aur acche se socho, please maan jao na! 💔';
-                noBtn.innerHTML = 'Sochungi 😢';
-            } 
-            else if (noClickCount === 2) {
-                // Second No click: Crying emoji & escaping button setup
-                emojiBox.innerHTML = '😭';
-                titleText.innerHTML = 'Dil mat todo yaar! 😭';
-                descText.innerHTML = 'Ab toh "No" dabane ka option hi nahi hai, pakad ke dikhao! 😜';
-                noBtn.innerHTML = 'Naah! 🏃‍♂️';
+            emojiBox.innerHTML = '😭';
+            titleText.innerHTML = title;
+            descText.innerHTML = desc;
+
+            if (clickStage >= 2) {
+                // Ab buttons ko screen par bhagane ke liye absolute position denge
+                noBtn.style.position = 'fixed';
+                thinkBtn.style.position = 'fixed';
                 
-                // Make the No button absolute or dynamic to run away
-                noBtn.style.position = 'absolute';
-                moveNoButton();
-                
-                // Add event listeners so it runs away on hover/touch
-                noBtn.addEventListener('mouseover', moveNoButton);
-                noBtn.addEventListener('touchstart', moveNoButton);
+                moveButtonsRandomly();
+
+                // Touch ya hover karte hi bhagne lagenge
+                noBtn.addEventListener('mouseover', moveButtonsRandomly);
+                noBtn.addEventListener('touchstart', moveButtonsRandomly);
+                thinkBtn.addEventListener('mouseover', moveButtonsRandomly);
+                thinkBtn.addEventListener('touchstart', moveButtonsRandomly);
             }
         }
 
-        function moveNoButton() {
+        function moveButtonsRandomly() {
             const noBtn = document.getElementById('noBtn');
-            // Random positions inside window bounds
-            const maxX = window.innerWidth - 120;
-            const maxY = window.innerHeight - 60;
-            
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
-            
-            noBtn.style.left = randomX + 'px';
-            noBtn.style.top = randomY + 'px';
+            const thinkBtn = document.getElementById('thinkBtn');
+
+            const maxX = window.innerWidth - 130;
+            const maxY = window.innerHeight - 70;
+
+            // No button ke liye random position
+            const rx1 = Math.floor(Math.random() * maxX);
+            const ry1 = Math.floor(Math.random() * maxY);
+            noBtn.style.left = rx1 + 'px';
+            noBtn.style.top = ry1 + 'px';
+
+            // Think button ke liye random position
+            const rx2 = Math.floor(Math.random() * maxX);
+            const ry2 = Math.floor(Math.random() * maxY);
+            thinkBtn.style.left = rx2 + 'px';
+            thinkBtn.style.top = ry2 + 'px';
         }
 
         function sayYes() {
             const container = document.getElementById('mainCard');
             
-            // Transform card into grand success/celebration state
             container.innerHTML = `
                 <div class="emoji-container">😆🤩😍</div>
                 <h1>Yayy!! Mujhe pata tha! 🎉</h1>
@@ -234,7 +283,6 @@
             `;
             container.classList.add('success-box');
 
-            // Trigger Confetti Party
             for (let i = 0; i < 60; i++) {
                 createConfetti();
             }
@@ -256,4 +304,150 @@
         }
     </script>
 </body>
-    </html>
+</html>
+￼Enter                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 35px 20px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .emoji-container {
+            font-size: 70px;
+            margin-bottom: 20px;
+            animation: bounce 1.5s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        p {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+            min-height: 60px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            z-index: 5;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.08);
+        }
+
+  #noBtn, #thinkBtn {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        /* Celebration Screen */
+        .success-box h1 {
+            color: #28a745;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        /* Confetti effect */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall 3s linear infinite;
+            z-index: 2;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Background Hearts -->
+    <script>
+        for (let i = 0; i < 20; i++) {
+            let heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.animationDelay = (Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+        }
+    </script>
+
+    <div class="container" id="mainCard">
+        <div class="emoji-container" id="emojiBox">🥺</div>
+        <h1 id="titleText">Kya tum mujhse pyaar karti ho?</h1>
+        <p id="descText">Tum mere liye bahut khaas ho... Please mujhe mana mat karna! 💖</p>
+        
+        <div class="btn-group" id="btnGroup">
+            <button class="btn" id="yesBtn" onclick="sayYes()">Yes! 🥰</button>
+            <button class="btn" id="thinkBtn" onclick="handleThinkClick()">Sochungi 🤔</button>
+            <button class="btn" id="noBtn" onclick="handleNoClick()">No 😒</button>
+        </div>
+    </div>
+
+    <script>
+        let clickStage = 0;
+
+        function handleThinkClick() {
+            clickStage++;
+            updateEmotionalState("Sochungi? 🥺", "Aise mat bolo yaar, dil me dard hota hai... Please jaldi se Yes bol do na! 💖");
+        }
+
+        function handleNoClick() {
+            clickStage++;
+            updateEmotionalState("Dil mat todo! 😭", "Na mat kaho na please! 🥺 Aise rulaogi kya mujhe? Ek baar aur socho!");
+        }
+
+        function updateEmotionalState(title, desc) {
+            const emojiBox = document.getElementById('emojiBox');
+            const titleText = document.getElementById('titleText');
+            const descText = document.getElementById('descText');
+            const noBtn = document.getElementById('noBtn');
